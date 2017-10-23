@@ -2,11 +2,11 @@
 ### Introduction
 In this project, we'll label the pixels of a road in images using a Fully Convolutional Network (FCN). FCN Netweork is established and trained according to these following steps. 
 
-* A VGG16 model pretrained on ImageNet for classification has been loaded and used as encoder to downsample the input images and extract features. 
-* VGG16's fully-connected layer has been replaced by 1-by-1 convolutions in order to preserve spatial information. 
-* Then we'll upsample the input to the original image size and add two skip connections to retain some lost information during encodering process. 
-* Kitti Road dataset has been used to train FCN model.
-* AWS EC2 AMI has been used as GPU calcualtion tool to finish this project. 
+* Loaded a pre-trained VGG16 model as encoder to downsample the input images and extract features. 
+* Replaced VGG16's fully-connected layer with 1-by-1 convolutions in order to preserve spatial information. 
+* Upsampled the input to the original image size and added two skip connections to retain some lost information during encodering process. 
+* Trained FCN model with Kitti Road dataset.
+* Calculated on AWS EC2 AMI. 
 ### Summary
 There are some sample images shown below including original, gound truth and images output from FCN model.  
 
@@ -14,13 +14,13 @@ Original | Output of FCN
 ---------|--------------
 ![](/images/origin_um_000017.png) | ![](/images/fcn_um_000017.png)  
 
-* These functions `load_vgg`, `layers`, `optimize` and `train_nn` have been implemented. 
-* The loss of FCN has been printed during training process. 
-* On average, the model decreases loss over time.
-* The number of epoch and batch size are set to a reasonable number.
-* The project labels most pixels of roads close to the best solution.
+* Implemented these functions `load_vgg`, `layers`, `optimize` and `train_nn`. 
+* Printed the loss of FCN during training process. 
+* The model loss decreases over time on average.
+* Set the number of epoch and batch size to a reasonable number.
+* The project labelled most pixels of roads close to the best solution.
 
-Most of time has been spent on AWS and development enviroment. There are still a lot of potential space and possibilities to optimize and expand FCN model usage. 
+Most of time has been spent on AWS and development enviroment. There are still a lot of space to optimize. 
 
 There are some poor sample images shown below also.
 
@@ -34,23 +34,23 @@ Detail FCN architecture can refer to the following image.
 ![Architecture](images/fcn8.PNG)
 
 ### Hyperparameters
-There are several hyperparameters shown below which influence model and loss greatly and need more time to try and optimize:
+There are several hyperparameters shown below which influence model and loss greatly and need more time to optimize:
 * Learning rate
 * Dropout
 * Epochs
 * Batch size
 * Standard deviation of convolution layer initializer
 
-Standard deviation of convolution layer initializer is a major influence factor for FCN model cost. If ingore Standard deviation of convolution layer initializer in model, the finally model loss is relative higher. 
+Standard deviation of convolution layer initializer is a major influence factor for FCN model cost. If ingoring Standard deviation of convolution layer initializer in model, the finally model loss will be high. 
 
-Some time has been spent on parameter optimization but not enough to get the best results. A primay acceptable hyperparamers has been used in model and shown below. 
+I spent some time on parameter optimization but not perfect. A primay acceptable hyperparamers has been used in model and shown below. 
 * Learning rate = 0.0001
 * Dropout = 0.5
 * Epochs = 50
 * Batch size = 4
 * Standard deviation of convolution layer initializer = 0.01
 
-The train cost history is shown below. It is obvious that cost still vibrate with increasement of epoch. 
+The train cost history is shown below. It is obvious that cost still vibrate with epoch. 
 
 Epoch       | Loss           
 ------------|--------------
@@ -108,7 +108,7 @@ Epoch: 49/50 | Loss: 0.011340917088091373
 
 ### Tools
 #### AWS EC2
-AWS EC2 AMI g3.4xlarge need apply seperately and wait for amazon approval. 
+AWS EC2 AMI g3.4xlarge needs application seperately and approval of AMAZON. 
 Class "AWS GPU instances" and "Lenet on AWS" in term1 class "Traffic Sign Classifer" are useful for fresh user of AWS. 
 
 #### Jupyter notebook
